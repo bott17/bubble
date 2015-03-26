@@ -3,6 +3,8 @@
     package="app.bott.bubble" >
 
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.MANAGE_DOCUMENTS" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -29,10 +31,6 @@
             android:name=".bubbles.CircularBubble"
             android:enabled="true"
             android:exported="true" >
-        </service>
-        <service
-            android:name=".services.MyIntentService"
-            android:exported="false" >
         </service>
         <service
             android:name=".services.ServiceBubblesPanel"

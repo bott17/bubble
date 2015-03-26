@@ -1,5 +1,11 @@
 package app.bott.bubble.activities;
 
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -9,6 +15,11 @@ import android.view.View;
 import android.widget.Button;
 
 import android.view.View.OnClickListener;
+import android.widget.ImageView;
+
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.List;
 
 import app.bott.bubble.bubbles.Bubble;
 import app.bott.bubble.bubbles.ChatHeadService;
@@ -19,7 +30,10 @@ import app.bott.bubble.services.ServiceManager;
 
 public class MainActivity extends ActionBarActivity {
 
-    Button createService, destroyService, newCircularBubble;
+    private final String TAG = "MAIN_ACTIVITY_CLASS";
+
+    Button createService, destroyService, newCircularBubble, openIMG;
+    ImageView img1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +49,8 @@ public class MainActivity extends ActionBarActivity {
 
 
     private void initComponents(){
+
+        img1 = (ImageView) findViewById(R.id.imageView);
 
         ChatHeadService ch = new ChatHeadService();
 
@@ -73,9 +89,56 @@ public class MainActivity extends ActionBarActivity {
                 ServiceManager.addBubbleToPanel(b);
             }
         });
+
+        openIMG = (Button) findViewById(R.id.button4);
+        openIMG.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Log.d(TAG, "bun1");
+
+                Intent gallIntent=new Intent(Intent.ACTION_GET_CONTENT);
+                gallIntent.setType("image/*");
+
+                List<Intent> yourIntentsList = new ArrayList<Intent>();
+                PackageManager packageManager = getApplicationContext().getPackageManager();
+                List<ResolveInfo> listGall = packageManager.queryIntentActivities(gallIntent, 0);
+
+                Log.d(TAG, "List of intents size: " + listGall.size());
+
+
+                Intent picMessageIntent = new Intent(Intent.ACTION_GET_CONTENT);
+                picMessageIntent.setType("image/*");
+
+                //startActivity(Intent.createChooser(picMessageIntent, "Send your picture using:"));
+                startActivity(picMessageIntent);
+
+
+
+                //Intent intent = new Intent(Intent.ACTION_PICK,
+                  //      android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                //startActivityForResult(intent, 0);
+            }
+        });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
 
+        if (resultCode == RESULT_OK){
+            Uri targetUri = data.getData();
+            // textTargetUri.setText(targetUri.toString());
+            Bitmap bitmap;
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+                img1.setImageBitmap(bitmap);
+            } catch (FileNotFoundException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
+        }
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

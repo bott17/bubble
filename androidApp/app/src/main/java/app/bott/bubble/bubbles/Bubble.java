@@ -31,4 +31,5 @@ public class Bubble {
     public View getView() {
         return view;
     }
+
 }
