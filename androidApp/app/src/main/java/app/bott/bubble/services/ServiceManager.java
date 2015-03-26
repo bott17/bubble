@@ -35,7 +35,12 @@ public abstract class ServiceManager {
     }
 
     public static void addBubbleToPanel(Bubble bubble){
+        // TODO Se pueden añadir bubbles al servicio si no esta activo :/
         ServiceBubblesPanel.addBubble(bubble);
+    }
+
+    public static void removeBubbleFromPanel(Bubble bubble){
+        ServiceBubblesPanel.killBubble(bubble);
     }
 
 

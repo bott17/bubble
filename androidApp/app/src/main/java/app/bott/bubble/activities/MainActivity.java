@@ -1,6 +1,5 @@
 package app.bott.bubble.activities;
 
-import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -14,13 +13,13 @@ import android.view.View.OnClickListener;
 import app.bott.bubble.bubbles.Bubble;
 import app.bott.bubble.bubbles.ChatHeadService;
 import app.bott.bubble.R;
-import app.bott.bubble.bubbles.CircularBubble;
+import app.bott.bubble.factories.BubbleFactory;
 import app.bott.bubble.services.ServiceManager;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    Button newBubbleButton, destroyService;
+    Button createService, destroyService, newCircularBubble;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,8 +40,8 @@ public class MainActivity extends ActionBarActivity {
 
         Log.i("Main", "Init comp");
 
-        newBubbleButton = (Button) findViewById(R.id.button1);
-        newBubbleButton.setOnClickListener(new OnClickListener(
+        createService = (Button) findViewById(R.id.button1);
+        createService.setOnClickListener(new OnClickListener(
 
         ) {
             @Override
@@ -63,6 +62,15 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 ServiceManager.stopBubblesPanelService(getApplicationContext());
+            }
+        });
+
+        newCircularBubble = (Button) findViewById(R.id.button3);
+        newCircularBubble.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bubble b = BubbleFactory.createCircularBubble(getApplicationContext());
+                ServiceManager.addBubbleToPanel(b);
             }
         });
     }

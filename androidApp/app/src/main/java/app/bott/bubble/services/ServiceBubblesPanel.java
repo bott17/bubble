@@ -17,7 +17,7 @@ public class ServiceBubblesPanel extends Service {
     private final String TAG = "BUBBLE_CLASS";
 
     private static WindowManager windowManager;
-    private WindowManager.LayoutParams params;
+    private static WindowManager.LayoutParams params;
 
     private static ArrayList<Bubble> bubbles = new ArrayList<>();
 
@@ -47,19 +47,29 @@ public class ServiceBubblesPanel extends Service {
         params.y = 100;
     }
 
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+
+        for(Bubble actualBubble: bubbles)
+             windowManager.removeView(actualBubble.getView());
+
+        bubbles.clear();
+    }
+
     protected static void addBubble(Bubble bubble){
 
         bubbles.add(bubble);
-        //windowManager.addView(bubble.getView(), params);
+        windowManager.addView(bubble.getView(), params);
 
     }
 
-    protected void killBubble(Bubble bubble){
+    protected static void killBubble(Bubble bubble){
 
         for(Bubble actualBubble: bubbles)
             if(actualBubble.equals(bubble)) {
 
-                //windowManager.removeView(actualBubble.getView());
+                windowManager.removeView(actualBubble.getView());
                 bubbles.remove(bubble);
 
                 break;

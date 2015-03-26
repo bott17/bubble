@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import android.view.View;
 import android.widget.ImageView;
 
 import app.bott.bubble.R;
@@ -14,7 +15,7 @@ import app.bott.bubble.R;
 public class CircularBubble  extends Bubble{
 
 
-    public CircularBubble() {
-        super();
+    public CircularBubble(View bubbleView) {
+        super(bubbleView);
     }
 }
