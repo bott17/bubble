@@ -27,16 +27,20 @@ public abstract class ServiceManager {
 
         boolean stop = cont.stopService(new Intent(cont, ServiceBubblesPanel.class));
 
-        if (stop)
+        if (stop) {
             Log.d(TAG, "ServiceBubblesPanel stop...");
+            serviceBubblesPanel = null;
+        }
         else
             Log.d(TAG, "ServiceBubblesPanel CANT stop...");
 
     }
 
     public static void addBubbleToPanel(Bubble bubble){
-        // TODO Se pueden añadir bubbles al servicio si no esta activo :/
-        ServiceBubblesPanel.addBubble(bubble);
+        if(serviceBubblesPanel != null)
+            ServiceBubblesPanel.addBubble(bubble);
+        else
+            Log.d(TAG, "CANT add bubbble to panel, service not up....");
     }
 
     public static void removeBubbleFromPanel(Bubble bubble){
