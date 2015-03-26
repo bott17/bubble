@@ -1,15 +1,20 @@
-package app.bott.bubble;
+package app.bott.bubble.activities;
 
 import android.content.Intent;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.Button;
 
 import android.view.View.OnClickListener;
+
+import app.bott.bubble.bubbles.Bubble;
+import app.bott.bubble.bubbles.ChatHeadService;
+import app.bott.bubble.R;
+import app.bott.bubble.bubbles.CircularBubble;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -33,14 +38,20 @@ public class MainActivity extends ActionBarActivity {
 
         ChatHeadService ch = new ChatHeadService();
 
+        Log.i("Main", "Init comp");
+
         newBubbleButton = (Button) findViewById(R.id.button1);
         newBubbleButton.setOnClickListener(new OnClickListener(
 
         ) {
             @Override
             public void onClick(View v) {
-                ChatHeadService ch = new ChatHeadService();
-                startService(new Intent(getApplicationContext(), ChatHeadService.class));
+                //ChatHeadService ch = new ChatHeadService();
+                //startService(new Intent(getApplicationContext(), ChatHeadService.class));
+                //Bubble b =  new CircularBubble();
+                //b.startBubbleService(getApplicationContext(), b.getClass());
+                startService(new Intent(getApplicationContext(),CircularBubble.class));
+
             }
         });
     }
