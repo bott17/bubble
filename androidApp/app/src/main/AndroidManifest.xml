@@ -2,13 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="app.bott.bubble" >
 
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
     <application
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name=".MainActivity"
+            android:name=".activities.MainActivity"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -16,9 +18,27 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service android:name=".ChatHeadService" />
-    </application>
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+        <service android:name=".bubbles.ChatHeadService" />
+        <service
+            android:name=".bubbles.Bubble"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+        <service
+            android:name=".bubbles.CircularBubble"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+        <service
+            android:name=".services.MyIntentService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name=".services.ServiceBubblesPanel"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+    </application>
 
 </manifest>
