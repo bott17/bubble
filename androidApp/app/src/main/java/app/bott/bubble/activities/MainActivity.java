@@ -15,11 +15,12 @@ import app.bott.bubble.bubbles.Bubble;
 import app.bott.bubble.bubbles.ChatHeadService;
 import app.bott.bubble.R;
 import app.bott.bubble.bubbles.CircularBubble;
+import app.bott.bubble.services.ServiceManager;
 
 
 public class MainActivity extends ActionBarActivity {
 
-    Button newBubbleButton;
+    Button newBubbleButton, destroyService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,8 +51,18 @@ public class MainActivity extends ActionBarActivity {
                 //startService(new Intent(getApplicationContext(), ChatHeadService.class));
                 //Bubble b =  new CircularBubble();
                 //b.startBubbleService(getApplicationContext(), b.getClass());
-                startService(new Intent(getApplicationContext(),CircularBubble.class));
+                //startService(new Intent(getApplicationContext(),CircularBubble.class));
 
+                ServiceManager.startBubblesPanelService(getApplicationContext());
+
+            }
+        });
+
+        destroyService = (Button) findViewById(R.id.button2);
+        destroyService.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ServiceManager.stopBubblesPanelService(getApplicationContext());
             }
         });
     }

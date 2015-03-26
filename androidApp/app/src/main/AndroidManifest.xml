@@ -30,7 +30,15 @@
             android:enabled="true"
             android:exported="true" >
         </service>
-
+        <service
+            android:name=".services.MyIntentService"
+            android:exported="false" >
+        </service>
+        <service
+            android:name=".services.ServiceBubblesPanel"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
     </application>
 
 </manifest>

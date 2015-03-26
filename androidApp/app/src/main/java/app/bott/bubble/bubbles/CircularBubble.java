@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.IBinder;
 import android.util.Log;
+import android.widget.ImageView;
 
 import app.bott.bubble.R;
 
@@ -12,19 +13,8 @@ import app.bott.bubble.R;
  */
 public class CircularBubble  extends Bubble{
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
 
-        Log.i("CircularBubble", "Oncreate Bubble");
-
-        bubbleClass = CircularBubble.class;
-
-        bubble.setImageResource(R.drawable.ic_launcher);
-        windowManager.addView(bubble, params);
-
+    public CircularBubble() {
+        super();
     }
-
-
-
 }

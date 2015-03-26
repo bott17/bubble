@@ -15,49 +15,23 @@ import android.widget.ImageView;
 
 import app.bott.bubble.R;
 
-public class Bubble extends Service {
+public class Bubble {
 
     private final String TAG = "BUBBLE_CLASS";
 
-    protected WindowManager windowManager;
     protected ImageView bubble;
-    protected Class bubbleClass;
 
-    protected LayoutParams params;
-
-    @Override
-    public IBinder onBind(Intent intent) {
-        // TODO: Return the communication channel to the service.
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-
-    @Override
-    public void onCreate() {
-        Log.d("Bubble", "Oncreate Bubble");
-        super.onCreate();
-
-        windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
-        bubble = new ImageView(this);
+/*
+    public Bubble(ImageView _bubble_) {
+        this.bubble = _bubble_;
 
         initBubble();
+    }*/
 
-
-
-    }
 
     private void initBubble(){
 
-        params = new WindowManager.LayoutParams(
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.WRAP_CONTENT,
-                WindowManager.LayoutParams.TYPE_PHONE,
-                WindowManager.LayoutParams.FLAG_NOT_FOCUSABLE,
-                PixelFormat.TRANSLUCENT);
 
-        params.gravity = Gravity.TOP | Gravity.LEFT;
-        params.x = 0;
-        params.y = 100;
 
         bubble.setOnLongClickListener(new View.OnLongClickListener() {
 
@@ -65,13 +39,13 @@ public class Bubble extends Service {
             public boolean onLongClick(View v) {
 
                 Log.d(TAG, "Entering onLongClick");
-                windowManager.removeView(bubble);
+                //windowManager.removeView(bubble);
 
-                if(bubbleClass != null)
-                    stopService(new Intent(getApplicationContext(), bubbleClass));
+                //if(bubbleClass != null)
+                   // stopService(new Intent(getApplicationContext(), bubbleClass));
 
-                else
-                    Log.e(TAG, "Bubble class not defined---");
+               // else
+                //    Log.e(TAG, "Bubble class not defined---");
 
                 return true;
             }
