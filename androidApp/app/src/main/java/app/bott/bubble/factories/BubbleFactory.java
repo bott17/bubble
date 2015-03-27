@@ -1,6 +1,7 @@
 package app.bott.bubble.factories;
 
 import android.content.Context;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -20,6 +21,7 @@ public abstract class BubbleFactory {
 
         final CircularBubble bubble = new CircularBubble(img);
 
+
         bubble.getView().setOnLongClickListener(new View.OnLongClickListener() {
 
             @Override
@@ -28,6 +30,7 @@ public abstract class BubbleFactory {
                 return true;
             }
         });
+        
 
         return  bubble;
     }
