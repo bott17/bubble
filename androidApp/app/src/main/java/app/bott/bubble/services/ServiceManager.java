@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.util.Log;
 
 import app.bott.bubble.bubbles.Bubble;
-import app.bott.bubble.bubbles.CircularBubble;
 
 /**
  * Created by bott on 26/03/2015.

@@ -3,27 +3,22 @@ package app.bott.bubble.activities;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 
-import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 
+import app.bott.bubble.R;
 import app.bott.bubble.bubbles.Bubble;
 import app.bott.bubble.bubbles.ChatHeadService;
-import app.bott.bubble.R;
 import app.bott.bubble.factories.BubbleFactory;
 import app.bott.bubble.services.ServiceManager;
 
@@ -86,7 +81,11 @@ public class MainActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Bubble b = BubbleFactory.createCircularBubble(getApplicationContext());
-                ServiceManager.addBubbleToPanel(b);
+                //ServiceManager.addBubbleToPanel(b);
+
+                Intent circularBubbleIntent = new Intent(getApplicationContext(), BubbleOptionsActivity.class);
+                circularBubbleIntent.putExtra("BubbleCode", b.g);
+                startActivity(new Intent(getApplicationContext(), BubbleOptionsActivity.class));
             }
         });
 
@@ -111,7 +110,8 @@ public class MainActivity extends ActionBarActivity {
                 picMessageIntent.setType("image/*");
 
                 //startActivity(Intent.createChooser(picMessageIntent, "Send your picture using:"));
-                startActivity(picMessageIntent);
+                //startActivity(picMessageIntent);
+                startActivityForResult(picMessageIntent, 555);
 
 
 
@@ -122,23 +122,7 @@ public class MainActivity extends ActionBarActivity {
         });
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK){
-            Uri targetUri = data.getData();
-            // textTargetUri.setText(targetUri.toString());
-            Bitmap bitmap;
-            try {
-                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-                img1.setImageBitmap(bitmap);
-            } catch (FileNotFoundException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

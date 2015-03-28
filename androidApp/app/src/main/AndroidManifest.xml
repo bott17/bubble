@@ -37,6 +37,11 @@
             android:enabled="true"
             android:exported="true" >
         </service>
+
+        <activity
+            android:name=".activities.BubbleOptionsActivity"
+            android:label="@string/title_activity_bubble_options" >
+        </activity>
     </application>
 
 </manifest>

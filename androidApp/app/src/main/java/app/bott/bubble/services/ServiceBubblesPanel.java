@@ -6,8 +6,6 @@ import android.graphics.PixelFormat;
 import android.os.IBinder;
 import android.util.Log;
 import android.view.Gravity;
-import android.view.MotionEvent;
-import android.view.View;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
@@ -112,4 +110,6 @@ public class ServiceBubblesPanel extends Service {
             }
 
     }
+
+
 }
