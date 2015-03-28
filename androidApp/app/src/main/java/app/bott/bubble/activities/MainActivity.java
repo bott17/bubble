@@ -13,15 +13,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
-import com.google.gson.Gson;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import app.bott.bubble.R;
-import app.bott.bubble.bubbles.Bubble;
 import app.bott.bubble.bubbles.ChatHeadService;
-import app.bott.bubble.factories.BubbleFactory;
 import app.bott.bubble.services.ServiceManager;
 
 public class MainActivity extends ActionBarActivity {
@@ -57,14 +53,7 @@ public class MainActivity extends ActionBarActivity {
         ) {
             @Override
             public void onClick(View v) {
-                //ChatHeadService ch = new ChatHeadService();
-                //startService(new Intent(getApplicationContext(), ChatHeadService.class));
-                //Bubble b =  new CircularBubble();
-                //b.startBubbleService(getApplicationContext(), b.getClass());
-                //startService(new Intent(getApplicationContext(),CircularBubble.class));
-
                 ServiceManager.startBubblesPanelService(getApplicationContext());
-
             }
         });
 
@@ -80,12 +69,13 @@ public class MainActivity extends ActionBarActivity {
         newCircularBubble.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                Bubble b = BubbleFactory.createCircularBubble(getApplicationContext());
+                //CircularBubble b = BubbleFactory.createCircularBubble(getApplicationContext());
                 //ServiceManager.addBubbleToPanel(b);
 
                 Intent circularBubbleIntent = new Intent(getApplicationContext(), BubbleOptionsActivity.class);
-                circularBubbleIntent.putExtra("BubbleCode", b.g);
-                startActivity(new Intent(getApplicationContext(), BubbleOptionsActivity.class));
+                circularBubbleIntent.putExtra("NewBubble", true);
+
+                startActivity(new Intent(circularBubbleIntent));
             }
         });
 

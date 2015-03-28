@@ -14,12 +14,18 @@ import app.bott.bubble.bubbles.Bubble;
 
 public class ServiceBubblesPanel extends Service {
 
-    private final String TAG = "BUBBLE_CLASS";
+    private static final String TAG = "SERVICE_PANEL_BUBBLES";
 
     private static WindowManager windowManager;
     private static WindowManager.LayoutParams params;
 
     private static ArrayList<Bubble> bubbles = new ArrayList<>();
+    private static Bubble activeBubble = null;
+
+    protected static Bubble getActiveBubble() {
+        Log.d(TAG, activeBubble.toString());
+        return activeBubble;
+    }
 
 
     @Override
@@ -112,4 +118,9 @@ public class ServiceBubblesPanel extends Service {
     }
 
 
+    protected static void makeActiveBubble(Bubble thisBubble) {
+        activeBubble = thisBubble;
+    }
+
+    protected static void cleanActiveBubble(){ activeBubble = null;}
 }
