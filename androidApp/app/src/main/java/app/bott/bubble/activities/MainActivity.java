@@ -13,6 +13,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.google.gson.Gson;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,7 +23,6 @@ import app.bott.bubble.bubbles.Bubble;
 import app.bott.bubble.bubbles.ChatHeadService;
 import app.bott.bubble.factories.BubbleFactory;
 import app.bott.bubble.services.ServiceManager;
-
 
 public class MainActivity extends ActionBarActivity {
 
@@ -36,7 +37,6 @@ public class MainActivity extends ActionBarActivity {
         setContentView(R.layout.activity_main);
 
         initComponents();
-
 
     }
 
