@@ -3,7 +3,6 @@ package app.bott.bubble.activities;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -26,10 +25,8 @@ public class BubbleOptionsActivity extends ActionBarActivity {
     private static final String TAG = "BubbleOptionsActivity";
 
     private Button buttonSelectIMG, buttonNewCBubble;
-    private ImageView imgTemporal;
+    private ImageView imgPreview;
     private Bubble bubble;
-
-    private Bitmap imagenSelected;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +47,9 @@ public class BubbleOptionsActivity extends ActionBarActivity {
         Bubble bubble = ServiceManager.getActiveBubble();
         if(bubble != null) {
             // TODO recuperar opciones de bubble
+
+            ImageView temporalView = (ImageView)bubble.getView();
+            imgPreview.setImageDrawable(temporalView.getDrawable());
         }
         else{
             Log.e(TAG, "NO se puede recuperar la Bubble activa!...");
@@ -57,12 +57,14 @@ public class BubbleOptionsActivity extends ActionBarActivity {
     }
 
     private void fillDefaultOptions() {
+
+        imgPreview.setImageDrawable(getResources().getDrawable(R.drawable.ic_launcher));
         
     }
 
     private void initComponents(){
 
-        imgTemporal = (ImageView) findViewById(R.id.imageView2);
+        imgPreview = (ImageView) findViewById(R.id.imageView2);
 
         buttonSelectIMG = (Button) findViewById(R.id.button4);
         buttonSelectIMG.setOnClickListener(new View.OnClickListener() {
@@ -87,12 +89,20 @@ public class BubbleOptionsActivity extends ActionBarActivity {
     }
 
     private void createBubble(){
-        //TODO controlar que las opciones minimas esten rellenas
 
-        Bubble bubble = BubbleFactory.createCircularBubble(getApplicationContext());
+        final Bubble bubble = BubbleFactory.createCircularBubble(getApplicationContext());
         //TODO rellenar la bubble con las opciones
-        bubble.changeImage(imagenSelected, getApplicationContext());
 
+        bubble.changeImage(imgPreview.getDrawable(), getApplicationContext());
+
+        bubble.getView().setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(getApplicationContext(), BubbleOptionsActivity.class);
+                bubble.makeActiveBubble();
+                startActivity(i);
+            }
+        });
 
         ServiceManager.addBubbleToPanel(bubble);
     }
@@ -106,9 +116,8 @@ public class BubbleOptionsActivity extends ActionBarActivity {
             Uri targetUri = data.getData();
             // textTargetUri.setText(targetUri.toString());
             try {
-                imagenSelected = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
-                BitmapDrawable ob = new BitmapDrawable(getResources(), imagenSelected);
-                imgTemporal.setImageBitmap(imagenSelected);
+                 Bitmap imgSelect = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+                imgPreview.setImageBitmap(imgSelect);
             } catch (FileNotFoundException e) {
                 // TODO Auto-generated catch block
                 e.printStackTrace();

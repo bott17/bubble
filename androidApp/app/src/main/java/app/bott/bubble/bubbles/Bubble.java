@@ -2,6 +2,7 @@ package app.bott.bubble.bubbles;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -28,9 +29,10 @@ public class Bubble {
         ServiceManager.makeActiveBubble(this);
     }
 
-    public void changeImage(Bitmap newImg, Context context) {
+    public void changeImage(Drawable newImg, Context context) {
         ImageView img = new ImageView(context);
-        img.setImageBitmap(newImg);
+        //img.setImageBitmap(newImg);
+        img.setImageDrawable(newImg);
 
         view = img;
     }
