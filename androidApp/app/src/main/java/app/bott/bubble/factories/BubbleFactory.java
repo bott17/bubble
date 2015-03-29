@@ -20,6 +20,7 @@ public abstract class BubbleFactory {
 
         final CircularBubble bubble = new CircularBubble(img);
 
+
         bubble.getView().setOnLongClickListener(new View.OnLongClickListener() {
 
             @Override
@@ -29,6 +30,9 @@ public abstract class BubbleFactory {
             }
         });
 
+
         return  bubble;
     }
+
+
 }

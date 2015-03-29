@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.util.Log;
 
 import app.bott.bubble.bubbles.Bubble;
-import app.bott.bubble.bubbles.CircularBubble;
 
 /**
  * Created by bott on 26/03/2015.
@@ -37,8 +36,9 @@ public abstract class ServiceManager {
     }
 
     public static void addBubbleToPanel(Bubble bubble){
-        if(serviceBubblesPanel != null)
+        if(serviceBubblesPanel != null) {
             ServiceBubblesPanel.addBubble(bubble);
+        }
         else
             Log.d(TAG, "CANT add bubbble to panel, service not up....");
     }
@@ -47,5 +47,16 @@ public abstract class ServiceManager {
         ServiceBubblesPanel.killBubble(bubble);
     }
 
+    public static Bubble getActiveBubble(){
 
+        return ServiceBubblesPanel.getActiveBubble();
+    }
+
+
+    public static void makeActiveBubble(Bubble thisBubble) {
+
+        ServiceBubblesPanel.makeActiveBubble(thisBubble);
+    }
+
+    public static void cleanActiveBubble(){ServiceBubblesPanel.cleanActiveBubble();}
 }

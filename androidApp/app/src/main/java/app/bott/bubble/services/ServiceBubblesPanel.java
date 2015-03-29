@@ -14,12 +14,18 @@ import app.bott.bubble.bubbles.Bubble;
 
 public class ServiceBubblesPanel extends Service {
 
-    private final String TAG = "BUBBLE_CLASS";
+    private static final String TAG = "SERVICE_PANEL_BUBBLES";
 
     private static WindowManager windowManager;
     private static WindowManager.LayoutParams params;
 
     private static ArrayList<Bubble> bubbles = new ArrayList<>();
+    private static Bubble activeBubble = null;
+
+    protected static Bubble getActiveBubble() {
+        Log.d(TAG, activeBubble.toString());
+        return activeBubble;
+    }
 
 
     @Override
@@ -57,10 +63,44 @@ public class ServiceBubblesPanel extends Service {
         bubbles.clear();
     }
 
-    protected static void addBubble(Bubble bubble){
+    protected static void addBubble(final Bubble  bubble){
 
         bubbles.add(bubble);
         windowManager.addView(bubble.getView(), params);
+
+        /*
+        bubble.getView().setOnTouchListener(new View.OnTouchListener() {
+            private int initialX;
+            private int initialY;
+            private float initialTouchX;
+            private float initialTouchY;
+
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        initialX = params.x;
+                        initialY = params.y;
+                        initialTouchX = event.getRawX();
+                        initialTouchY = event.getRawY();
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        params.x = initialX
+                                + (int) (event.getRawX() - initialTouchX);
+                        params.y = initialY
+                                + (int) (event.getRawY() - initialTouchY);
+                        windowManager.updateViewLayout(bubble.getView(), params);
+                        return true;
+
+                }
+                return false;
+            }
+        });
+        */
 
     }
 
@@ -76,4 +116,11 @@ public class ServiceBubblesPanel extends Service {
             }
 
     }
+
+
+    protected static void makeActiveBubble(Bubble thisBubble) {
+        activeBubble = thisBubble;
+    }
+
+    protected static void cleanActiveBubble(){ activeBubble = null;}
 }

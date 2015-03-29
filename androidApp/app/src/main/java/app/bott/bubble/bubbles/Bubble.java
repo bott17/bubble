@@ -1,19 +1,12 @@
 package app.bott.bubble.bubbles;
 
-import android.app.Service;
 import android.content.Context;
-import android.content.Intent;
-import android.graphics.PixelFormat;
-import android.os.IBinder;
-import android.util.Log;
-import android.view.Gravity;
-import android.view.MotionEvent;
+import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.view.View;
-import android.view.WindowManager;
-import android.view.WindowManager.LayoutParams;
 import android.widget.ImageView;
 
-import app.bott.bubble.R;
+import app.bott.bubble.services.ServiceManager;
 
 public class Bubble {
 
@@ -30,5 +23,17 @@ public class Bubble {
 
     public View getView() {
         return view;
+    }
+
+    public void makeActiveBubble(){
+        ServiceManager.makeActiveBubble(this);
+    }
+
+    public void changeImage(Drawable newImg, Context context) {
+        ImageView img = new ImageView(context);
+        //img.setImageBitmap(newImg);
+        img.setImageDrawable(newImg);
+
+        view = img;
     }
 }
