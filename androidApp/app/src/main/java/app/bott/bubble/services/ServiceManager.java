@@ -59,4 +59,8 @@ public abstract class ServiceManager {
     }
 
     public static void cleanActiveBubble(){ServiceBubblesPanel.cleanActiveBubble();}
+
+    public static void moveBubble(float rawX, float rawY) {
+
+    }
 }

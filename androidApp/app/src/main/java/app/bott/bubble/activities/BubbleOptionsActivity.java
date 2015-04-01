@@ -9,6 +9,7 @@ import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -28,6 +29,8 @@ public class BubbleOptionsActivity extends ActionBarActivity {
     private ImageView imgPreview;
     private Bubble bubble;
 
+    private boolean newBubble = true;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,9 +39,11 @@ public class BubbleOptionsActivity extends ActionBarActivity {
         initComponents();
 
         if(getIntent().getBooleanExtra("NewBubble", false)) {
+            newBubble = true;
             this.fillDefaultOptions();
         }
         else{
+            newBubble = false;
             this.recoverBubbleOptions();
         }
     }
@@ -95,14 +100,48 @@ public class BubbleOptionsActivity extends ActionBarActivity {
 
         bubble.changeImage(imgPreview.getDrawable(), getApplicationContext());
 
-        bubble.getView().setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent i = new Intent(getApplicationContext(), BubbleOptionsActivity.class);
-                bubble.makeActiveBubble();
-                startActivity(i);
-            }
-        });
+        if(newBubble) {
+
+           /* bubble.getView().setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent i = new Intent(getApplicationContext(), BubbleOptionsActivity.class);
+                    bubble.makeActiveBubble();
+                    startActivity(i);
+                }
+            });*/
+
+           bubble.getView().setOnTouchListener(new View.OnTouchListener() {
+               private long initial, endClick;
+               boolean moveOn = false;
+
+               @Override
+               public boolean onTouch(View v, MotionEvent event) {
+                    switch (event.getAction()) {
+                        case MotionEvent.ACTION_DOWN:
+                            initial = System.currentTimeMillis();
+                            Log.d(TAG, "Action down..." + initial);
+                            return true;
+                        case MotionEvent.ACTION_UP:
+                            endClick = System.currentTimeMillis();
+                            Log.d(TAG, "Action up..." + endClick);
+                            if((endClick -initial) <= 400 && !moveOn) {
+                                ServiceManager.removeBubbleFromPanel(bubble);
+                            }
+                            moveOn = false;
+                            return true;
+                        case MotionEvent.ACTION_MOVE:
+                            moveOn = true;
+                            Log.d(TAG, "Action MOVE...");
+                            ServiceManager.moveBubble(event.getRawX(), event.getRawY());
+                            return true;
+
+                    }
+                    return false;
+               }
+
+            });
+        }
 
         ServiceManager.addBubbleToPanel(bubble);
     }
