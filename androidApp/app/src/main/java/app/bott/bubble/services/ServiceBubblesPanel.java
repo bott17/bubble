@@ -1,15 +1,20 @@
 package app.bott.bubble.services;
 
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.Service;
 import android.content.Intent;
 import android.graphics.PixelFormat;
 import android.os.IBinder;
+import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.WindowManager;
 
 import java.util.ArrayList;
 
+import app.bott.bubble.R;
+import app.bott.bubble.activities.MainActivity;
 import app.bott.bubble.bubbles.Bubble;
 
 public class ServiceBubblesPanel extends Service {
@@ -43,6 +48,14 @@ public class ServiceBubblesPanel extends Service {
         Log.d(TAG, "Service Create...");
         super.onCreate();
 
+
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+
+        Log.d(TAG, "Service Start...");
+
         windowManager = (WindowManager) getSystemService(WINDOW_SERVICE);
 
         params = new WindowManager.LayoutParams(
@@ -55,6 +68,17 @@ public class ServiceBubblesPanel extends Service {
         params.gravity = Gravity.TOP | Gravity.LEFT;
 //        params.x = 0;
 //        params.y = 100;
+
+
+        Intent nextIntent = new Intent(this, MainActivity.class);
+        nextIntent.setAction("hola");
+        PendingIntent pnextIntent = PendingIntent.getService(this, 0,
+                nextIntent, 0);
+        Notification notification = new Notification.Builder(getApplicationContext()).build();
+        startForeground(1, notification);
+
+
+        return START_STICKY;
     }
 
     @Override
