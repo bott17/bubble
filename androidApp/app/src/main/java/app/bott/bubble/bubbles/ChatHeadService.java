@@ -49,46 +49,46 @@ public class ChatHeadService extends Service {
 
         windowManager.addView(chatHead, params);
 
-        chatHead.setOnLongClickListener(new View.OnLongClickListener() {
+       /* chatHead.setOnLongClickListener(new View.OnLongClickListener() {
 
             @Override
             public boolean onLongClick(View v) {
                 windowManager.removeView(chatHead);
                 return true;
             }
-        });
+        });*/
 
-        //
-        // bubble.setOnTouchListener(new View.OnTouchListener() {
-        // private int initialX;
-        // private int initialY;
-        // private float initialTouchX;
-        // private float initialTouchY;
-        //
-        // @Override
-        // public boolean onTouch(View v, MotionEvent event) {
-        // switch (event.getAction()) {
-        // case MotionEvent.ACTION_DOWN:
-        // initialX = params.x;
-        // initialY = params.y;
-        // initialTouchX = event.getRawX();
-        // initialTouchY = event.getRawY();
-        // return true;
-        // case MotionEvent.ACTION_UP:
-        // return true;
-        // case MotionEvent.ACTION_MOVE:
-        // params.x = initialX
-        // + (int) (event.getRawX() - initialTouchX);
-        // params.y = initialY
-        // + (int) (event.getRawY() - initialTouchY);
-        // windowManager.updateViewLayout(bubble, params);
-        // return true;
-        //
-        // }
-        // return false;
-        // }
 
-        // });
+        /*bubble.setOnTouchListener(new View.OnTouchListener() {
+            private int initialX;
+            private int initialY;
+            private float initialTouchX;
+            private float initialTouchY;
+
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        initialX = params.x;
+                        initialY = params.y;
+                        initialTouchX = event.getRawX();
+                        initialTouchY = event.getRawY();
+                        return true;
+                    case MotionEvent.ACTION_UP:
+                        return true;
+                    case MotionEvent.ACTION_MOVE:
+                        params.x = initialX
+                                + (int) (event.getRawX() - initialTouchX);
+                        params.y = initialY
+                                + (int) (event.getRawY() - initialTouchY);
+                        windowManager.updateViewLayout(bubble, params);
+                        return true;
+
+                }
+                return false;
+            }
+
+        });*/
 
         chatHead.setOnTouchListener(new View.OnTouchListener() {
             private int initialX;

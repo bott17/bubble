@@ -27,6 +27,10 @@ public class ServiceBubblesPanel extends Service {
         return activeBubble;
     }
 
+    public static WindowManager.LayoutParams getParams() {
+        return params;
+    }
+
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -123,4 +127,12 @@ public class ServiceBubblesPanel extends Service {
     }
 
     protected static void cleanActiveBubble(){ activeBubble = null;}
+
+    public static void moveBubble(Bubble bubble, int newX, int newY) {
+
+        params.x = newX;
+        params.y = newY;
+
+        windowManager.updateViewLayout(bubble.getView(), params);
+    }
 }
