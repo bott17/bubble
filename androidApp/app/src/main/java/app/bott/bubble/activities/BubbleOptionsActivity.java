@@ -114,11 +114,21 @@ public class BubbleOptionsActivity extends ActionBarActivity {
            bubble.getView().setOnTouchListener(new View.OnTouchListener() {
                private long initial, endClick;
                boolean moveOn = false;
+               private int initialX;
+               private int initialY;
+               private float initialTouchX;
+               private float initialTouchY;
 
                @Override
                public boolean onTouch(View v, MotionEvent event) {
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
+
+                            initialX = ServiceManager.getBubblePosition(bubble).get(0);
+                            initialY = ServiceManager.getBubblePosition(bubble).get(1);
+                            initialTouchX = event.getRawX();
+                            initialTouchY = event.getRawY();
+
                             initial = System.currentTimeMillis();
                             Log.d(TAG, "Action down..." + initial);
                             return true;
@@ -132,8 +142,12 @@ public class BubbleOptionsActivity extends ActionBarActivity {
                             return true;
                         case MotionEvent.ACTION_MOVE:
                             moveOn = true;
+
+                            int movX = initialX + (int) (event.getRawX() - initialTouchX);
+                            int movY = initialY  + (int) (event.getRawY() - initialTouchY);
+
                             Log.d(TAG, "Action MOVE...");
-                            ServiceManager.moveBubble(event.getRawX(), event.getRawY());
+                            ServiceManager.moveBubble(bubble,movX, movY);
                             return true;
 
                     }
