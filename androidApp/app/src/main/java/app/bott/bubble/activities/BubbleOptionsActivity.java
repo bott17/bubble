@@ -124,8 +124,8 @@ public class BubbleOptionsActivity extends ActionBarActivity {
                     switch (event.getAction()) {
                         case MotionEvent.ACTION_DOWN:
 
-                            initialX = ServiceManager.getBubblePosition(bubble).get(0);
-                            initialY = ServiceManager.getBubblePosition(bubble).get(1);
+                            initialX = bubble.getPosX();
+                            initialY = bubble.getPosY();
                             initialTouchX = event.getRawX();
                             initialTouchY = event.getRawY();
 
@@ -135,6 +135,7 @@ public class BubbleOptionsActivity extends ActionBarActivity {
                         case MotionEvent.ACTION_UP:
                             endClick = System.currentTimeMillis();
                             Log.d(TAG, "Action up..." + endClick);
+                            // Check time for distinguish click or move
                             if((endClick -initial) <= 400 && !moveOn) {
                                 ServiceManager.removeBubbleFromPanel(bubble);
                             }
@@ -147,7 +148,8 @@ public class BubbleOptionsActivity extends ActionBarActivity {
                             int movY = initialY  + (int) (event.getRawY() - initialTouchY);
 
                             Log.d(TAG, "Action MOVE...");
-                            ServiceManager.moveBubble(bubble,movX, movY);
+                            bubble.setNewPos(movX, movY);
+                            ServiceManager.moveBubble(bubble);
                             return true;
 
                     }

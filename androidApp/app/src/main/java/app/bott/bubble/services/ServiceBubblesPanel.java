@@ -53,8 +53,8 @@ public class ServiceBubblesPanel extends Service {
                 PixelFormat.TRANSLUCENT);
 
         params.gravity = Gravity.TOP | Gravity.LEFT;
-        params.x = 0;
-        params.y = 100;
+//        params.x = 0;
+//        params.y = 100;
     }
 
     @Override
@@ -70,6 +70,8 @@ public class ServiceBubblesPanel extends Service {
     protected static void addBubble(final Bubble  bubble){
 
         bubbles.add(bubble);
+        params.x = bubble.getPosX();
+        params.y = bubble.getPosY();
         windowManager.addView(bubble.getView(), params);
 
         /*
@@ -128,10 +130,10 @@ public class ServiceBubblesPanel extends Service {
 
     protected static void cleanActiveBubble(){ activeBubble = null;}
 
-    public static void moveBubble(Bubble bubble, int newX, int newY) {
+    public static void moveBubble(Bubble bubble) {
 
-        params.x = newX;
-        params.y = newY;
+        params.x = bubble.getPosX();
+        params.y = bubble.getPosY();
 
         windowManager.updateViewLayout(bubble.getView(), params);
     }
