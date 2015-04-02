@@ -63,26 +63,10 @@ public abstract class ServiceManager {
 
     public static void cleanActiveBubble(){ServiceBubblesPanel.cleanActiveBubble();}
 
-    public static void moveBubble(Bubble bubble, int newX, int newY) {
+    public static void moveBubble(Bubble bubble) {
 
-        ServiceBubblesPanel.moveBubble(bubble, newX, newY);
-
-    }
-
-    /**
-     * Return the initial X and Y position of the bubble.
-     * @param bubble Bubble to know position
-     * @return Array whit X position in 0 and Y position in 1
-     */
-    public static ArrayList<Integer> getBubblePosition(Bubble bubble) {
-
-        WindowManager.LayoutParams params= ServiceBubblesPanel.getParams();
-
-        ArrayList<Integer> positions = new ArrayList<>();
-        positions.add(params.x);
-        positions.add(params.y);
-
-        return positions;
+        ServiceBubblesPanel.moveBubble(bubble);
 
     }
+
 }
